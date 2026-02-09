@@ -39,3 +39,7 @@ static/uploads/*
 
 # Logs
 *.log
+
+# Binaries
+ngrok.exe
+.ngrok.exe.old

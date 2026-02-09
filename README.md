@@ -37,25 +37,33 @@ A gesture-based application for quickly transferring text and images from your c
    pip install -r requirements.txt
    ```
 
-3. Run the server:
+3. **Run the application (Windows):**
    ```
-   python server.py
+   start.bat
    ```
+   This script will automatically:
+   - Start the secure tunnel (Ngrok)
+   - Launch the backend server
+   - Start the gesture detection app
 
-4. In a separate terminal, run the gesture detection app:
-   ```
-   python gesture_sender.py
-   ```
+   *Alternatively, you can run components individually as described below only if the batch file fails.*
 
-5. Open your browser on your mobile device and navigate to your computer's IP address on port 5000 (e.g., `http://192.168.1.100:5000`)
+4. **Connect your phone:**
+   - Scan the QR code displayed in the Server window.
+   - Or manually visit the displayed URL on your mobile device.
 
 ## Usage
 
-1. Copy text on your computer
-2. Make a closed fist gesture in front of your webcam
-3. The text will be transferred to your phone
-4. To send images, visit `http://your-ip:5000/upload` on your computer and upload an image
-5. Use hand gestures on your phone to control the display
+1. **On your Computer:**
+   - Ensure the "Gesture Drop Sender" window is open and can see your hand.
+   - Press 'C' to calibrate skin tone if needed.
+   - Copy any text (Ctrl+C).
+   - Show a **Closed Fist ✊** to the camera.
+
+2. **On your Phone:**
+   - The text will automatically appear!
+   - You can also view uploaded images.
+
 
 ## License
 

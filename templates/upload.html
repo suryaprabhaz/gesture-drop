@@ -1,14 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Upload Image</title>
-</head>
-<body>
-  <h2>Upload Image to Send to Phone</h2>
-  <form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" accept="image/*" required />
-    <br><br>
-    <button type="submit">Upload</button>
+{% extends "base.html" %}
+
+{% block title %}Gesture Drop - Upload{% endblock %}
+{% block header %}Upload Media{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h3>Send Image to Phone</h3>
+  <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
+    Choose an image to beam instantly to your connected device.
+  </p>
+
+  <form method="post" enctype="multipart/form-data" class="upload-form">
+    <input type="file" name="file" accept="image/*" required>
+    <input type="submit" value="Upload Image">
   </form>
-</body>
-</html>
+</div>
+
+<div class="card" style="text-align: center;">
+  <a href="/" class="btn"
+    style="background: transparent; border: 1px solid var(--primary-color); color: var(--primary-color);">
+    &larr; Back to Mobile View
+  </a>
+</div>
+
+{% if message %}
+<div class="card" style="border-color: #00ffcc; background: rgba(0,255,204,0.1);">
+  <p style="margin: 0; text-align: center;">{{ message|safe }}</p>
+</div>
+{% endif %}
+{% endblock %}
