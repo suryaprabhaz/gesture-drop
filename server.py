@@ -1,4 +1,4 @@
-# Author: @SuryaPrabhas
+# Author: @suryaprabhaz
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 import os

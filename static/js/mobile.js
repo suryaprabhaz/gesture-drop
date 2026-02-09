@@ -1,4 +1,4 @@
-/* Author: @SuryaPrabhas */
+/* Author: @suryaprabhaz */
 async function main() {
     const video = document.getElementById("video");
     const output = document.getElementById("output");

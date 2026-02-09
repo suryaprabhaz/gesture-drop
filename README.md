@@ -67,7 +67,7 @@ A gesture-based application for quickly transferring text and images from your c
 
 ## Author
 
-Developed by **[@SuryaPrabhas](https://github.com/suryaprabhaz)**
+Developed by **[@suryaprabhaz](https://github.com/suryaprabhaz)**
 
 ## License
 
