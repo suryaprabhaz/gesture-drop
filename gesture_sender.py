@@ -1,3 +1,4 @@
+# Author: @SuryaPrabhas
 import cv2
 import pyperclip
 import requests

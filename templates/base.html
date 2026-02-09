@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -17,8 +19,14 @@
         </div>
 
         {% block content %}{% endblock %}
+
+        <div class="footer"
+            style="text-align: center; margin-top: 2rem; padding: 1rem; opacity: 0.7; font-size: 0.9rem;">
+            <p>Created by <strong>@SuryaPrabhas</strong></p>
+        </div>
     </div>
 
     {% block scripts %}{% endblock %}
 </body>
+
 </html>

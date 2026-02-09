@@ -65,6 +65,10 @@ A gesture-based application for quickly transferring text and images from your c
    - You can also view uploaded images.
 
 
+## Author
+
+Developed by **[@SuryaPrabhas](https://github.com/suryaprabhaz)**
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

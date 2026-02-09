@@ -1,3 +1,4 @@
+/* Author: @SuryaPrabhas */
 async function main() {
     const video = document.getElementById("video");
     const output = document.getElementById("output");
@@ -24,11 +25,11 @@ async function main() {
     async function updateHistory() {
         const now = Date.now();
         if (now - lastHistoryFetch < 5000) return; // Fetch every 5s max
-        
+
         try {
             const res = await fetch("/history");
             const data = await res.json();
-            
+
             if (historyList) {
                 historyList.innerHTML = data.history.map(item => `
                     <li class="history-item">
@@ -42,14 +43,14 @@ async function main() {
             console.error("Failed to fetch history", e);
         }
     }
-    
+
     // Initial history fetch
     updateHistory();
     setInterval(updateHistory, 10000); // Auto-update history every 10s
 
     async function detect() {
         const predictions = await model.estimateHands(video);
-        
+
         if (predictions.length > 0) {
             const hand = predictions[0];
             const landmarks = hand.landmarks;
@@ -62,7 +63,7 @@ async function main() {
 
             // Gesture Logic
             const isThumbUp = thumbTip[1] < thumbIP[1] && thumbIP[1] < thumbMCP[1];
-            
+
             // Check if other fingers are down (below wrist or curled)
             // Using a simple y-check relative to a lower joint (MCP) roughly
             const indexMCP = landmarks[5];
@@ -70,10 +71,10 @@ async function main() {
             const ringMCP = landmarks[13];
             const pinkyMCP = landmarks[17];
 
-            const areFingersDown = 
+            const areFingersDown =
                 indexTip[1] > indexMCP[1] &&
-                middleTip[1] > middleMCP[1] && 
-                ringTip[1] > ringMCP[1] && 
+                middleTip[1] > middleMCP[1] &&
+                ringTip[1] > ringMCP[1] &&
                 pinkyTip[1] > pinkyMCP[1];
 
             const isOpenPalm =
@@ -96,7 +97,7 @@ async function main() {
                 }
             }
         }
-        
+
         requestAnimationFrame(detect);
     }
 
@@ -117,7 +118,7 @@ async function main() {
                 } else {
                     imgPreview.classList.remove("show");
                 }
-                
+
                 // Update history after a successful fetch action
                 setTimeout(updateHistory, 1000);
             })
@@ -125,7 +126,7 @@ async function main() {
                 console.error("Error fetching data:", err);
                 output.innerText = "Error connecting to server";
             });
-            
+
         setTimeout(() => {
             output.classList.remove("active");
         }, 2000);
