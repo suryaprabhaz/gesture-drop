@@ -5,11 +5,13 @@ import os
 import qrcode
 import socket
 import time
+import uuid
 from datetime import datetime
 
 app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 # Global State
 text_data = "Welcome to Gesture Drop!"
@@ -32,8 +34,14 @@ def upload():
             return render_template('upload.html', message="No selected file")
         
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        image_filename = filename
+        if not filename:
+            return render_template('upload.html', message="Invalid filename")
+        ext = os.path.splitext(filename)[1].lower()
+        if ext not in {".png", ".jpg", ".jpeg", ".gif", ".webp"}:
+            return render_template('upload.html', message="Unsupported image type")
+        stored_name = f"{uuid.uuid4().hex}{ext}"
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], stored_name))
+        image_filename = stored_name
         message = f"✅ Uploaded: {filename}"
         
     return render_template('upload.html', message=message)
@@ -41,8 +49,13 @@ def upload():
 @app.route('/save', methods=['POST'])
 def save():
     global text_data, history
-    data = request.get_json()
-    new_text = data.get("text", "")
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"status": "error", "message": "Invalid JSON"}), 400
+
+    new_text = str(data.get("text", "")).strip()
+    if len(new_text) > 10000:
+        return jsonify({"status": "error", "message": "Text too long"}), 413
     
     if new_text and new_text != text_data:
         text_data = new_text
@@ -63,6 +76,11 @@ def get():
 @app.route('/history', methods=['GET'])
 def get_history():
     return jsonify({"history": history})
+
+@app.errorhandler(413)
+def request_too_large(_error):
+    return jsonify({"status": "error", "message": "Upload exceeds 5 MB limit"}), 413
+
 
 def get_ip_address():
     try:
